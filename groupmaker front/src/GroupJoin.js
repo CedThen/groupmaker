@@ -21,16 +21,17 @@ function GroupJoin({ ws }) {
       <span>
         <h3>Enter your name: </h3>
       </span>
-      <form onSubmit={event => submitClick(event)}>
-        <input
-          type="text"
-          value={name}
-          onChange={event => setName(event.target.value)}
-          autoFocus
-        />
-
-        <input type="submit" value="Join the Group!" />
-      </form>
+      <input
+        type="text"
+        value={name}
+        onChange={event => setName(event.target.value)}
+        autoFocus
+      />
+      <input
+        type="submit"
+        onClick={event => submitClick(event)}
+        value="Join the Group!"
+      />
     </div>
   );
 }

@@ -18,7 +18,7 @@ class Clients {
   }
 }
 
-const clients = new Clients();
+let clients = new Clients();
 
 wss.on("connection", ws => {
   wss.clients.forEach(distributeNamesToClient);
@@ -39,7 +39,6 @@ wss.on("connection", ws => {
         wss.clients.forEach(distributeNamesToClient);
         break;
       case "splitgroups":
-        console.log("splitting");
         splitIntoGroups(message.payload);
         break;
       default:
@@ -62,9 +61,13 @@ function splitIntoGroups({ groupSize, numGroups }) {
   let shuffledNames = shuffle(currentConnectedNames);
   const splitNames = split(shuffledNames, groupSize, numGroups);
   distributeGroups(splitNames);
-  connectedSockets.map(connection => {
-    connection.socket.send(JSON.stringify("haha"));
-  });
+  resetNamesAndSockets();
+}
+
+function resetNamesAndSockets() {
+  currentConnectedNames = [];
+  connectedSockets = [];
+  clients = new Clients();
 }
 
 function shuffle(array) {
@@ -101,9 +104,7 @@ function distributeGroups(groupedNames) {
         type: "group",
         payload: group
       };
-      //connection.socket.send(JSON.stringify(message));
       clients.clientList[name].send(JSON.stringify(message));
-      console.log("awel;fjasd");
     });
   });
 }

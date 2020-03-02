@@ -1,14 +1,24 @@
-import React, { Component } from "react";
-import "./App.css";
-
+import React from "react";
+import "./App.scss";
 import Groups from "./Groups.js";
+import Home from "./Pages/Home";
 
-class App extends Component {
+const URL = "ws://localhost:3030";
+
+class App extends React.PureComponent {
+  ws = new WebSocket(URL);
+
+  componentDidMount() {
+    this.ws.onopen = () => {
+      console.log("connected");
+    };
+  }
+
   render() {
     return (
       <div className="App">
-        <h1>Group Maker</h1>
-        <Groups />
+        {/* <Home /> */}
+        <Groups ws={this.ws} />
       </div>
     );
   }

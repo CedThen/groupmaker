@@ -1,0 +1,19 @@
+$color-background-image: #fffae3;
+$color-button-one: #ef8e80;
+$color-button-two: #6d4a69;
+
+.header {
+  height: 50vh;
+  background-color: $color-background-image;
+  background-size: cover;
+  background-position: top;
+  position: relative;
+
+  &__h1 {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+}
